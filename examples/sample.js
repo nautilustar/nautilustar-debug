@@ -26,7 +26,7 @@ function function_2() {
   try {
     throw new Error("Error message");
   } catch (e) {
-    logger().error_stack(e);
+    logger().stack.error(e);
   }
 }
 
