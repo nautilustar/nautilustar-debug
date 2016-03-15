@@ -29,8 +29,8 @@ var path  = require("path"),
     white: [97, 39],
   };
 
-function StrColor(s) {
-    if (!(this instanceof StrColor)) return new StrColor(s);
+function LogColor(s) {
+    if (!(this instanceof LogColor)) return new LogColor(s);
 
     var self = this;
 
@@ -65,7 +65,7 @@ function StrColor(s) {
             stack = Array.prototype.slice.call(getStack() || [], 1, 25);
             for (var i = 0, len = stack.length; i < len; i++) {
                 mark = i < len - 1 ? "├─" : "└─";
-                StrColor("  " + mark).light_red.print("%s:%s <%s>()", stack[i].getFileName(),
+                LogColor("  " + mark).light_red.print("%s:%s <%s>()", stack[i].getFileName(),
                     stack[i].getLineNumber(), stack[i].getFunctionName() || "anonymous");
             }
         } else
@@ -104,15 +104,16 @@ function getStack(){
     return stack;
 }
 
-function debug (name) {
+function debug (debugTag) {
+   if (!debugTag) {
     var stack   = getStack(),
       filename  = path.relative(base, stack[1].getFileName()),
       line      = stack[1].getLineNumber(),
-      debugName = name || (module.exports.app_name + ":" + filename + ":" + line);
-
-    return StrColor(debugName);
+      debugTag = module.exports.app_name + ":" + filename + ":" + line;
+    }
+    return LogColor(debugTag);
 };
 
 module.exports = debug;
 module.exports.app_name = path.basename(base);
-module.exports.StrColor = StrColor;
+module.exports.LogColor = LogColor;
