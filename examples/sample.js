@@ -1,28 +1,45 @@
-var logger = require("../");
+var logger = require("../"),
+  util = require("util");
 
-logger().log("Log message");
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ Log / Info / Warn / Error ~~~~~~~~~~~~~~~~~~~~~~~ */
+
+logger().log("Log message")
 logger().info("Info message");
 logger().success("Success message");
 logger().warn("Warn message");
 logger().error("Error message");
-
 logger("TAG").info("Optional debug tag");
-logger().error(new Error("Show stacktrace"));
 
-step0();
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ StackTrace Error ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-function step0() {
-  step1();
+function_0();
+
+function function_0() {
+  function_1();
 };
 
-function step1() {
-  step2();
+function function_1() {
+  function_2();
 }
 
-function step2() {
+function function_2() {
   try {
-    JSON.parse("{-}");
+    throw new Error("Error message");
   } catch (e) {
-    logger("Show stacktrace").error(e);
+    logger().error_stack(e);
   }
 }
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Inheritance ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+var Custom = function (str){
+  logger.call(this, str);
+
+  this.new_log = function (){
+    this.magenta.print.apply(this, arguments);
+  };
+};
+
+util.inherits(Custom, logger);
+
+new Custom().new_log("Custom log");
