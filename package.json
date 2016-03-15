@@ -2,6 +2,12 @@
   "name": "logger-debug",
   "version": "0.0.1",
   "description": "Simple and pretty logger to NodeJS",
+  "homepage": "https://github.com/nautilustar/debug-logger.git",
+  "bugs": "https://github.com/nautilustar/debug-logger.git/issues",
+  "repository":{
+    "type": "git",
+    "url": "https://github.com/nautilustar/debug-logger.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
