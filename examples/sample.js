@@ -24,7 +24,7 @@ function function_1() {
 
 function function_2() {
   try {
-    throw new Error("Error message");
+    throw new Error("Error message with stacktrace");
   } catch (e) {
     logger().stack.error(e);
   }
