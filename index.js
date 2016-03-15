@@ -114,5 +114,5 @@ function debug (name) {
 };
 
 module.exports = debug;
-module.exports.app_name = base;
+module.exports.app_name = path.basename(base);
 module.exports.StrColor = StrColor;
