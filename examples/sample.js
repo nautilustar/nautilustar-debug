@@ -5,7 +5,6 @@ var Logger = require("../"),
 
 console.log("\n\n/* ~~~~~~~~~~~~~~~~~~ Log / Info / Success / Warn / Error ~~~~~~~~~~~~~~~~~~ */\n\n");
 
-
 logger.log("Log message")
 logger.info("Info message");
 logger.success("Success message");
