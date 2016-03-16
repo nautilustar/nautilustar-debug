@@ -63,7 +63,7 @@ console.log("\n\n/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Inheritance ~~~~~~~~~~~~~~~~~
 var Custom = function (str){
     Logger.call(this, str);
 
-    this.new_log = this.printStyled.bind(this, ["magenta"], "new_log");
+    this.new_log = this.debug.bind(this, ["magenta"], "new_log");
 };
 
 util.inherits(Custom, Logger);
