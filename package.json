@@ -1,6 +1,6 @@
 {
   "name": "nautilustar-debug",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Simple and pretty logger to NodeJS",
   "homepage": "https://github.com/nautilustar/nautilustar-debug.git",
   "bugs": "https://github.com/nautilustar/nautilustar-debug.git/issues",

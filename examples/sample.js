@@ -1,16 +1,31 @@
-var logger = require("../"),
+var Logger = require("../"),
+  logger = Logger(),
   util = require("util");
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~ Log / Info / Warn / Error ~~~~~~~~~~~~~~~~~~~~~~~ */
 
-logger().log("Log message")
-logger().info("Info message");
-logger().success("Success message");
-logger().warn("Warn message");
-logger().error("Error message");
-logger("TAG").info("Optional debug tag");
+console.log("\n\n/* ~~~~~~~~~~~~~~~~~~ Log / Info / Success / Warn / Error ~~~~~~~~~~~~~~~~~~ */\n\n");
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ StackTrace ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+logger.log("Log message")
+logger.info("Info message");
+logger.success("Success message");
+logger.warn("Warn message");
+logger.error("Error message");
+
+
+console.log("\n\n/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Instance tag ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */\n\n");
+
+var logTag = Logger("TAG");
+
+logTag.log("Instance with tag");
+logTag.info("Instance with tag");
+logTag.success("Instance with tag");
+logTag.warn("Instance with tag");
+logTag.error("Instance with tag");
+
+
+console.log("\n\n/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ StackTrace ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */\n\n");
+
 
 function_0();
 
@@ -26,24 +41,36 @@ function function_2() {
     try {
         throw new Error("Error message with stacktrace");
     } catch (e) {
-        logger().stack.error(e);
+        logger.stack.log("Log message with stacktrace");
+        logger.stack.info("Info message with stacktrace");
+        logger.stack.success("Success message with stacktrace");
+        logger.stack.warn("Warn message with stacktrace");
+        logger.stack.error(e);
     }
-    logger().stack.warn("Warn with stacktrace");
-    logger().stack.info("Info with stacktrace");
-    logger().stack.success("Success with stacktrace");
-    logger().stack.log("Log with stacktrace");
 }
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Inheritance ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+console.log("\n\n/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Custom color ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */\n\n");
+
+
+logger.gray.print("custom", "Custom color\n");
+logger.stack.gray.print("custom", "Custom color with stacktrace");
+
+
+console.log("\n\n/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Inheritance ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */\n\n");
+
 
 var Custom = function (str){
-  logger.call(this, str);
+    Logger.call(this, str);
 
-  this.new_log = function (){
-    this.magenta.print.apply(this, arguments);
-  };
+    this.new_log = this.printStyled.bind(this, ["magenta"], "new_log");
 };
 
-util.inherits(Custom, logger);
+util.inherits(Custom, Logger);
 
-new Custom().new_log("Custom log");
+var customLog = new Custom();
+customLog.new_log("Inheritance\n");
+customLog.stack.new_log("Inheritance with stacktrace");
+
+
+console.log("\n\n/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */\n\n");
