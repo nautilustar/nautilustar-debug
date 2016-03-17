@@ -1,10 +1,10 @@
 {
   "name": "nautilustar-debug",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple and pretty logger to NodeJS",
   "homepage": "https://github.com/nautilustar/nautilustar-debug.git",
   "bugs": "https://github.com/nautilustar/nautilustar-debug.git/issues",
-  "repository":{
+  "repository": {
     "type": "git",
     "url": "https://github.com/nautilustar/nautilustar-debug.git"
   },
@@ -17,5 +17,8 @@
     "logger"
   ],
   "author": "Pedro Silva <pdx.henrique@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "error-callsites": "^1.0.0"
+  }
 }
