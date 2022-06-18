@@ -1,6 +1,6 @@
 {
   "name": "nautilustar-debug",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Simple and pretty logger to NodeJS",
   "homepage": "https://github.com/nautilustar/nautilustar-debug.git",
   "bugs": "https://github.com/nautilustar/nautilustar-debug.git/issues",
@@ -8,8 +8,15 @@
     "type": "git",
     "url": "https://github.com/nautilustar/nautilustar-debug.git"
   },
-  "main": "lib/logger.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
+    "build": "tsc",
+    "lint": "npx eslint \"**/*.ts\"",
+    "lint:fix": "npx eslint \"**/*.ts\" --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -18,6 +25,17 @@
   ],
   "author": "Pedro Silva <pdx.henrique@gmail.com>",
   "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
+    "ts-node": "^10.8.1"
+  },
   "dependencies": {
+    "error-callsites": "^2.0.4"
   }
 }
