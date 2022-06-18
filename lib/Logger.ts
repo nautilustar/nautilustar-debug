@@ -3,15 +3,18 @@ import * as callsites from 'error-callsites';
 import { CallSite } from './CallSite';
 import { Log } from './Log';
 import { Transport } from './transport';
+import Callable from './Callable';
 
 export type ConfigLogger = {
-    transporters?: Transport[],
+  transporters?: Transport[],
 }
 
-export class Logger {
-  private transporters: Transport[];
+export class Logger extends Callable {
+  transporters: Transport[];
 
+  // eslint-disable-next-line no-unused-vars
   constructor(config?: ConfigLogger) {
+    super((...args: unknown[]) => this.log(Log.Level.LOG, ...args));
     this.transporters = config?.transporters || [];
   }
 
@@ -25,6 +28,10 @@ export class Logger {
 
   warn(...args: unknown[]) {
     this.log(Log.Level.WARN, ...args);
+  }
+
+  success(...args: unknown[]) {
+    this.log(Log.Level.SUCCESS, ...args);
   }
 
   error(...args: unknown[]) {

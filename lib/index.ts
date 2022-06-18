@@ -2,7 +2,7 @@ import { ConfigLogger, Logger } from './Logger';
 import { StyledConsoleFormatter } from './formatter';
 import { ConsoleTransport } from './transport';
 
-export function createLogger(config?: ConfigLogger) {
+export function createLogger(config?: ConfigLogger): Logger {
   return new Logger(config);
 }
 

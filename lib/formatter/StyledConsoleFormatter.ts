@@ -4,7 +4,7 @@ import { Formatter } from './Formatter';
 import { CallSite } from '../CallSite';
 import { Log } from '../Log';
 import { predefinedStyles } from './style/predefined-styles';
-import { Style } from './style';
+import { CompositeConsoleStyle, Style } from './style';
 
 const base = process.cwd();
 
@@ -64,7 +64,7 @@ export class StyledConsoleFormatter implements Formatter {
       case Log.Level.DEBUG:
         return predefinedStyles.darkGray;
       case Log.Level.LOG:
-        return predefinedStyles.lightGray;
+        return new CompositeConsoleStyle(predefinedStyles.lightGray, predefinedStyles.bold);
       case Log.Level.INFO:
         return predefinedStyles.blue;
       case Log.Level.WARN:
