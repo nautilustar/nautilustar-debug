@@ -4,9 +4,19 @@ Just another library for logging.
 
 ## Usage
 
-Basic usage:
+Basic usage
 
+### Importing
 ```js
+// from ts files
+import log from 'nautilustar-debug';
+
+// from js files
+const { log } = require('nautilustar-debug');
+```
+### Example
+```js
+// example.ts
 import log from 'nautilustar-debug';
 
 log('log message');
