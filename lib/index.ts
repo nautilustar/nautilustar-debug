@@ -6,7 +6,7 @@ export function createLogger(config?: ConfigLogger): Logger {
   return new Logger(config);
 }
 
-const log = createLogger({
+export const log = createLogger({
   transporters: [
     new ConsoleTransport({
       formatter: new StyledConsoleFormatter(),

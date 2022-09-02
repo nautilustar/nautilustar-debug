@@ -12,37 +12,36 @@ export type ConfigLogger = {
 export class Logger extends Callable {
   transporters: Transport[];
 
-  // eslint-disable-next-line no-unused-vars
   constructor(config?: ConfigLogger) {
-    super((...args: unknown[]) => this.log(Log.Level.LOG, ...args));
+    super((message: unknown, ...args: unknown[]) => this.log(Log.Level.LOG, message, ...args));
     this.transporters = config?.transporters || [];
   }
 
-  debug(...args: unknown[]) {
-    this.log(Log.Level.DEBUG, ...args);
+  debug(message: unknown, ...args: unknown[]) {
+    this.log(Log.Level.DEBUG, message, ...args);
   }
 
-  info(...args: unknown[]) {
-    this.log(Log.Level.INFO, ...args);
+  info(message: unknown, ...args: unknown[]) {
+    this.log(Log.Level.INFO, message, ...args);
   }
 
-  warn(...args: unknown[]) {
-    this.log(Log.Level.WARN, ...args);
+  warn(message: unknown, ...args: unknown[]) {
+    this.log(Log.Level.WARN, message, ...args);
   }
 
-  success(...args: unknown[]) {
-    this.log(Log.Level.SUCCESS, ...args);
+  success(message: unknown, ...args: unknown[]) {
+    this.log(Log.Level.SUCCESS, message, ...args);
   }
 
-  error(...args: unknown[]) {
-    this.log(Log.Level.ERROR, ...args);
+  error(message: unknown, ...args: unknown[]) {
+    this.log(Log.Level.ERROR, message, ...args);
   }
 
-  protected log(level: Log.Level, ...args: unknown[]): void {
+  protected log(level: Log.Level, message: unknown, ...args: unknown[]): void {
     const log: Log.Data = {
       date: new Date(),
       level,
-      message: util.format(...args),
+      message: util.format(message instanceof Error ? message.toString() : message, ...args),
       stacktrace: this.currentStackTrace(args[0]),
     };
 
