@@ -9,8 +9,9 @@ import { CompositeConsoleStyle, Style } from './style';
 const base = process.cwd();
 
 export type ConfigConsoleFormatter = {
-    appName?: string,
-    stackSizeLimit?: number,
+  appName?: string,
+  stackSizeLimit?: number,
+  logPrefixTemplate?: string,
 }
 
 export class StyledConsoleFormatter implements Formatter {
@@ -18,14 +19,17 @@ export class StyledConsoleFormatter implements Formatter {
 
   private stackSizeLimit: number;
 
+  private logPrefixTemplate: string;
+
   constructor(config?: ConfigConsoleFormatter) {
     this.appName = config?.appName || path.basename(base);
     this.stackSizeLimit = config?.stackSizeLimit || 10;
+    this.logPrefixTemplate = config?.logPrefixTemplate || '{date} {location}';
   }
 
   format(data: Log.Data): string {
     const style = this.styleForLevel(data.level);
-    const logName = this.formatLogName(data.stacktrace[0]);
+    const logName = this.formatLogName(data.date, data.stacktrace[0]);
 
     const toWrite = [
       ` ${style.applyTo(logName)} ${data.message}\n`,
@@ -78,12 +82,23 @@ export class StyledConsoleFormatter implements Formatter {
     }
   }
 
-  private formatLogName(stacktrace: CallSite): string {
-    return util.format(
-      '%s:%s:%s',
-      this.appName,
-      path.relative(base, stacktrace.getFileName()),
-      stacktrace.getLineNumber(),
-    );
+  private formatLogName(date: Date, stacktrace: CallSite): string {
+    return this.strFormat(this.logPrefixTemplate, {
+      date: this.formatDate(date),
+      module: this.appName,
+      location: `${path.relative(base, stacktrace.getFileName())}:${stacktrace.getLineNumber()}`,
+    });
+  }
+
+  private strFormat(template: string, data: object): string {
+    return Object.keys(data)
+      .reduce(
+        (acc: string, key) => acc.replace(`{${key}}`, data[key]),
+        template,
+      );
+  }
+
+  private formatDate(date: Date): string {
+    return date.toISOString();
   }
 }
